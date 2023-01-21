@@ -6,6 +6,11 @@ const Header = () => {
             <h1>
                 My Header 
             </h1>
+            <div>
+                <h2>
+                    My subheader
+                </h2>
+            </div>
         </div>
     )
 }

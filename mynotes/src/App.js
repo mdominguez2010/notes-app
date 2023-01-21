@@ -1,14 +1,25 @@
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+  } from "react-router-dom";
+
 import './App.css'
 import Header from './components/Header'
-import Body from './components/Body'
+import NotesListPage from './pages/NotesListPage'
+import NotePage from './pages/NotePage'
 
 function App() {
 	return (
-    	<div className="App">
-    		<Header />
-			<Body />
-    	</div>
-	)
+		<Router>
+			<div className="App">
+				<Header />
+				<Routes>
+					<Route path='/' element={<NotesListPage/>} />
+				</Routes>
+			</div>
+		</Router>
+	);
 }
 
-export default App
+export default App;
