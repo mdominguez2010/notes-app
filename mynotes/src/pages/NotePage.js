@@ -13,6 +13,7 @@ const NotePage = ({history = []}) => {
 
     useEffect(() => {
         let getNote = async () => {
+            if (noteId === 'new') return
             let response = await fetch(`http://localhost:8000/notes/${noteId}`)
             let data = await response.json()
             setNote(data)
@@ -21,6 +22,16 @@ const NotePage = ({history = []}) => {
         getNote()
 
     }, [noteId])
+
+    let createNote = async () => {
+        await fetch(`http://localhost:8000/notes/`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({...note, 'updated': new Date()})
+        })
+    }
 
     let updateNote = async () => {
         await fetch(`http://localhost:8000/notes/${noteId}`, {
@@ -40,7 +51,7 @@ const NotePage = ({history = []}) => {
             },
             body: JSON.stringify(note)
         })
-        history.push("/")
+        history.push({pathname: "/"})
     }
 
     let handleSubmit = () => {
@@ -48,8 +59,10 @@ const NotePage = ({history = []}) => {
             deleteNote()
         } else if (noteId !== "new") {
             updateNote()
+        } else if (noteId === "new" && note.body !== null){
+            createNote()
         }
-        history.push("/")
+        history.push({pathname: "/"})
     }
 
     return (
@@ -61,7 +74,14 @@ const NotePage = ({history = []}) => {
                     </Link>
                 </h3>
 
-                <button onClick={deleteNote}>Delete</button>
+                {noteId !== "new" ? (
+
+                    <button onClick={deleteNote}>Delete</button>
+
+                ) : (
+                    <button onClick={handleSubmit}>Done</button> 
+                    )
+                }
 
             </div>
             

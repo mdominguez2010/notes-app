@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
-// import notes from '../assets/data'
+import {Link} from "react-router-dom"
 import ListItem from '../components/ListItem'
+import Add from '../assets/Add.png'
 
 const NotesListPage = () => {
     
@@ -30,6 +31,9 @@ const NotesListPage = () => {
                     )
                 }
             </div>
+            <Link to="/note/new" className='floating-button'>
+                <img src={Add} alt="add"/>
+            </Link>
         </div>
     )
 }
